@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="admin/headAdmin">
+<head>
+    <meta charset="utf-8"/>
+    <title>Gestion des Secrétaires</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+          th:href="@{css/bootstrap.min.css}"
+    />
+
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css"
+          th:href="@{css/style.css}"
+    />
+</head>
+<body>
+<div class="container"  layout:fragment="content">
+    <div class=" spacer col-md-6 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"> Mise à jour des informations d'une secrétaire</div>
+            <div class="panel-body">
+                <form th:action="@{Miseajr}" method="post">
+
+                    <div class="form-group">
+                        <label class="control-label">ID:</label>
+                        <input class = "form-control" type="text" name="login"
+                               th:value="${user.login}" readonly="true"/>
+                        <span class="red" th:errors="${user.login}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Prénom:</label>
+                        <input class = "form-control" type="text" name="firstName"
+                               th:value="${user.firstName}"/>
+                        <span class="red" th:errors="${user.firstName}"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Nom:</label>
+                        <input class = "form-control" type="text" name="lastName"
+                               th:value="${user.lastName}"/>
+                        <span class="red" th:errors="${user.lastName}"></span>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label class="control-label">E-mail:</label>
+                        <input class = "form-control" type="text" name="email"
+                               th:value="${user.email}"/>
+                        <span class="red" th:errors="${user.email}"></span>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Manager:</label>
+                        <div class="col-md-5">
+                            <div >
+                                <select name="logM">
+                                    <option th:each="manager:${manager}"
+                                            th:value="${manager.login}"
+                                            th:text="${manager.login}"
+
+                                    />
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Rôle:</label>
+                        <div class="col-md-5">
+                            <div >
+                                <select name="authorities">
+                                    <option th:each="rol:${rol}"
+                                            th:value="${rol}"
+                                            th:text="${rol}"
+
+                                    />
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <br/>
+                    <center>
+
+                        <div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

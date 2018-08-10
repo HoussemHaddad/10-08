@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8"/>
+    <title>Gestion Formation</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+          th:href="@{css/bootstrap.min.css}"
+    />
+
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css"
+          th:href="@{css/style.css}"
+    />
+
+    <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.0.10/css/all.css}" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous"/>
+
+
+
+
+    <meta charset="utf-8"/>
+    <title>PCD</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-inverse" style="background-color:Black;">
+        <div class="container-fluid" style="background-color:Black;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="navbar-header" style="background-color:Black;">
+                        <a class="navbar-brand fas fa-home" th:href="@{Page1Admin}"> Acceuil </a>
+                    </div>
+
+
+                    <ul class="nav navbar-nav">
+                        <!--   <li><a class="dropdown-toggle"> <span class="glyphicon glyphicon-home"></span> Accueil </a></li>
+                         -->
+                        <li class = "dropdown">
+                            <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
+                                <span class="fas fa-street-view"> </span> Gestion des utilisateurs
+                                <b class = "caret"></b>
+                            </a>
+                            <ul class = "dropdown-menu">
+                                <li><a th:href="@{FormUser}"> <span class="fas fa-user-plus"></span> Ajouter un utilisateur  </a></li>
+                                <li><a th:href="@{ListeUser}"> <span class="far fa-list-alt"></span> Consulter les informations des utilisateurs </a></li>
+
+                            </ul>
+                        </li>
+
+                        <li class = "dropdown">
+                            <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
+                                <span class="fas fa-book"> </span> Gestion des roles
+                                <b class = "caret"></b>
+                            </a>
+                            <ul class = "dropdown-menu">
+                                <li><a th:href="@{FormRole}"> <span class="glyphicon glyphicon-pencil"></span> Ajouter un role  </a></li>
+                                <li><a th:href="@{ListeRole}"> <span class="far fa-list-alt"></span> Consulter les roles </a></li>
+
+                            </ul>
+                        </li>
+
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+ </li>
+                         <li class = " centreinteret dropdown marge1" >
+                              <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
+                                  <div class="centreinteret"><div class=" fas fa-user centreinteret" th:text="${session.mySessionAttribute}" th:unless="${session == null}">[...]</div>
+                                </div><!--  <b class = "caret"></b>-->
+                              </a>
+                            <ul class = "dropdown-menu">
+                                  <li><a class="dropdown-toggle" th:href="@{logout}" th:inline="text" delete-cookies="JSESSIONID"> <span  class="fas fa-sign-out-alt" ></span> Déconecter </a></li>
+
+
+                              </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<section layout:fragment="content">
+
+</section>
+<br />
+<br />
+<footer class="navbar-fixed-bottom">
+    <hr/>
+    <div class="container">
+        <small> Copyright @2018 </small>
+    </div>
+</footer>
+</body>
+</html>
