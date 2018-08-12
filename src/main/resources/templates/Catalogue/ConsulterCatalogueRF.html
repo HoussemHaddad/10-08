@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="RF/headRF">
+<head>
+    <meta charset="utf-8"/>
+    <title> Formation</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+          th:href="@{css/bootstrap.min.css}"
+    />
+</head>
+<body>
+<p></p>
+<div  class="container" layout:fragment="content">
+    <div  class="container">
+        <form th:action="@{ConsulterCatalogueRF}" method="get">
+
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Categorie Filtre:</label>
+                <div class="col-md-5">
+                    <div >
+                        <select name="motCle">
+                            <option th:each="c:${categories}"
+                                    th:value="${c.id}"
+                                    th:text="${c.nomCategorie}"
+
+                            />
+                        </select>
+
+                    </div>
+                    <button class="btn btn-primary">Chercher</button>
+                </div>
+            </div>
+
+
+
+        </form>
+
+
+    </div>
+
+
+    <div class="container">
+        <h3>Liste des Formations</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Titre Formation</th><th>Categorie</th><th>Détails</th>
+
+
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr th:each="c:${ListFormation}">
+                <td th:text="${c.nomFormation}"></td>
+
+
+
+                <td th:text="${c.categorieFormation.nomCategorie}"></td>
+
+                <td><a th:href="@{DetailFormationRF(idFormation=${c.id})}">Détails</a></td>
+
+
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li th:class="${pagecourante}==${status.index}?'active':''" th:each="page,status:${pages}">
+                <a th:href="@{ListeFormation(page=${status.index},size=${size},motCle=${motCle})}" th:text="${status.index}">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

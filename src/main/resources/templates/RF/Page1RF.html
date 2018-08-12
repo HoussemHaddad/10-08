@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="RF/headRF">
+<head>
+    <meta charset="utf-8"/>
+    <title>Gestion Formation</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+          th:href="@{css/bootstrap.min.css}"
+    />
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <center>
+        <div class="panel panel-default">
+            <div class=" panel-heading"> <p class="fas fa-home">Acceuil</p></div>
+            <div class="panel-body">
+                <marquee></marquee><h2 class="red"> Bienvenue sur l'application web de gestion des formations</h2><marquee></marquee>
+                <h3>Groupe Orange<br/><br/>
+                    Sofrecom Tunisie
+                </h3>
+
+                <img th:src="@{sofrecom.png}" width="200" height="200"/>
+
+                <hr />
+                <p class="dropdown-toggle" th:href="@{/login?logout}" th:inline="text">> <span  >Bienvenue: </span> <span th:text="${session.mySessionAttribute}" th:unless="${session == null}">[...]</span></p>
+                <hr />
+
+            </div>
+        </div>
+    </center>
+</div>
+
+
+</body>
+</html>

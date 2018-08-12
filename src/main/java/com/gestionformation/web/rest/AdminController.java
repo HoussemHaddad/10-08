@@ -47,10 +47,9 @@ import javax.naming.directory.InitialDirContext;
 @Controller
 //@EnableGlobalAuthentication
 //@Profile("DEV_STANDALONE_H2_TEST_LDAP")
-@RequestMapping("/")
-public class ProduitController {
-    @Autowired
-    private ProduitRepository produitRepository;
+//@RequestMapping("/")
+public class AdminController {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -60,79 +59,6 @@ public class ProduitController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-
-
-    @RequestMapping(value = "/prod")
-    public String index(Model model,
-                        @RequestParam(name = "page", defaultValue = "0") int p,
-                        @RequestParam(name = "size", defaultValue = "5") int s
-        , @RequestParam(name = "motCle", defaultValue = "") String mc
-    ) {
-        Page<Produit> pageProduits =
-            produitRepository.chercher("%" + mc + "%", new PageRequest(p, s));
-
-        model.addAttribute("ListProduits", pageProduits.getContent());
-        int[] pages = new int[pageProduits.getTotalPages()];
-
-        model.addAttribute("pages", pages);
-        model.addAttribute("size", s);
-        model.addAttribute("pagecourante", p);
-        model.addAttribute("motCle", mc);
-        return "Produits";
-    }
-
-    //delete
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(Long id, String motCle, int page, int size) {
-//        produitRepository.deleteById(id);
-
-        return "redirect:/index?page=" + page + "&size=" + size + "&motCle=" + motCle;
-    }
-
-
-/*
-    @RequestMapping(value = "/testing")
-    public String login2() {
-        return "test";
-    }*/
-
-    //ajout
-    @RequestMapping(value = "/form", method = RequestMethod.GET)
-    public String formProduit(Model model) {
-        model.addAttribute("produit", new Produit());
-        return "FormProduit";
-    }
-
-
-    //save pour ajout et msg
-    @RequestMapping(value = "/save")
-    public String save(Model model, @Valid Produit produit,
-                       BindingResult bindingResult) {
-        System.out.println("prix!!!!!!!!!!" + produit.getPrix());
-        if (bindingResult.hasErrors()) {
-            System.out.println("ici cv po");
-            return "FormProduit";
-        }
-//        produitRepository.save(produit);
-
-
-//produitRepository.insert(200L,"prod888",100,20);
-
-//            produitRepository.up(103L,20);
-        System.out.println("ici cv ");
-
-        return "admin/Confirmation";
-    }
-
-
-    //edit
-//				@RequestMapping(value="/edit",method=RequestMethod.GET)
-//				public String edit(Model model,Long id) {
-//					Produit p=produitRepository.findById(id);
-//					model.addAttribute("produit",p);
-//					return "EditProduit";
-//				}
 
 
 
@@ -260,7 +186,7 @@ User user= new User();
 
         System.out.println("ici cv ");
         model.addAttribute("user",user);
-        return "admin/ListeUser";
+        return "redirect:ListeUser?page=0&size=5&motCle=";
     }
 
 
@@ -374,7 +300,8 @@ User user= new User();
                     else  if(d.getName().equals("ROLE_MANAGER"))
                         System.out.println("ici on va retourner la page acceuil du Manager");
                     else  if(d.getName().equals("ROLE_RF"))
-                        System.out.println("ici on va retourner la page acceuil du Responsable formation");
+                        return "RF/Page1RF";
+//                        System.out.println("ici on va retourner la page acceuil du Responsable formation");
                 System.out.println("role:++++++"+d.getName());
             }
         }
@@ -634,8 +561,8 @@ User user= new User();
                     else  if(role.equals("ROLE_MANAGER"))
                         System.out.println("ici on va retourner la page acceuil du Manager");
                     else  if(role.equals("ROLE_RF"))
-                        System.out.println("ici on va retourner la page acceuil du Responsable formation");
-
+//                        System.out.println("ici on va retourner la page acceuil du Responsable formation");
+                        return "RF/Page1RF";
 
 
                 }
