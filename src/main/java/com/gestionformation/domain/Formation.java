@@ -51,9 +51,13 @@ public class Formation implements Serializable {
 //    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 //    private Set<Formulaire> formulaires = new HashSet<>();
 
-//    @OneToMany(mappedBy = "commentaire")
+    @OneToMany(mappedBy = "commentaire")
 //    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-//    private Set<Commentaire> commentaires = new HashSet<>();
+    private Set<Commentaire> commentaires = new HashSet<>();
+
+    @OneToMany(mappedBy = "utilisateur")
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Reservation> ListeReservations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -144,9 +148,14 @@ public class Formation implements Serializable {
         Active = active;
     }
 
-    //    public Set<Commentaire> getCommentaires() {
-//        return commentaires;
-//    }
+    public Set<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(Set<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
+
 //
 //    public Commentaire commentaires(Set<Commentaire> formulaires) {
 //        this.commentaires = formulaires;
@@ -226,4 +235,11 @@ public class Formation implements Serializable {
     }
 
 
+    public Set<Reservation> getListeReservations() {
+        return ListeReservations;
+    }
+
+    public void setListeReservations(Set<Reservation> listeReservations) {
+        ListeReservations = listeReservations;
+    }
 }

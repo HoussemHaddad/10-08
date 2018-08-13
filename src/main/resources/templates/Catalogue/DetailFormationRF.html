@@ -20,7 +20,7 @@
 
 
     <div class="container">
-        <h3>Détails d'une Formation</h3>
+      <center>  <h3>Détails d'une Formation</h3></center>
 
         <table class="table">
             <thead>
@@ -99,14 +99,89 @@
             </tbody>
         </table>
     </div>
+
+
+
+
+    <div class="container" style="width:70em;height:50em;border:2px solid #999999;">
+        <h3>Liste des commentaires</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Utilisateur</th><th>commentaire</th>
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr th:each="c:${commentaires}">
+                <td th:text="${c.utilisateur.login}">:</td>
+                <td th:text="${c.contenu}"></td>
+
+
+
+            </tr>
+            </tbody>
+        </table>
+
     <div class="container">
         <ul class="nav nav-pills">
             <li th:class="${pagecourante}==${status.index}?'active':''" th:each="page,status:${pages}">
-                <a th:href="@{ListeFormation(page=${status.index},size=${size},motCle=${motCle})}" th:text="${status.index}">
+                <a th:href="@{DetailFormationRF(page=${status.index},size=${size},idFormation=${idFormation})}" th:text="${status.index}">
                 </a>
             </li>
         </ul>
     </div>
+
+        <div  class="container">
+            <form th:action="@{CommentaireRF}" method="get">
+                <input type="text" name="idFormation" th:value="${idFormation}"hidden="hidden"/>
+                <input type="text" name="motCle" th:value="${motCle}"style="width:40em;"/>
+                <button class="btn btn-primary">Commenter</button>
+            </form>
+        </div>
+
+<br/>
+        <div  class="container" style="width:60em;height:7em;border:2px solid #999999;">
+            <form th:action="@{ReservationRF}" method="get">
+                <input type="text" name="idFormation" th:value="${idFormation}"hidden="hidden"/>
+                <div class="form-group centreinteret">
+                    <label class="control-label">Date du Reservation:</label>
+                    <select name="jr">
+                        <option th:each="jr:${jr}"
+                                th:value="${jr}"
+                                th:text="${jr}"
+
+                        />
+                    </select>
+
+                    <select name="mois">
+                        <option th:each="m:${mois}"
+                                th:value="${m}"
+                                th:text="${m}"
+
+                        />
+                    </select>
+                    <input class = " annee "  placeholder="Ex:2018" type="text" size="4" name="annee1"
+                    />
+
+                </div>
+
+                <br/>
+                <center>
+
+                    <div>
+                        <button type="submit" class="btn btn-primary">Réserver</button>
+                    </div>
+                </center>
+            </form>
+        </div>
+
+    </div>
+
+
+<br/>
+    <br/>
+
 </div>
 </body>
 </html>

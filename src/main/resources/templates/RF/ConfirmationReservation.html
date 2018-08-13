@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="admin/headAdmin">
+      layout:decorator="RF/headRF">
 <head>
     <meta charset="utf-8"/>
     <title>Gestion des Roles</title>
@@ -13,12 +13,22 @@
 <div class="container" layout:fragment="content">
 
     <div class="panel panel-default">
-        <div class="panel-heading">Confirmation</div>
+        <div class="panel-heading">Confirmation du réservation</div>
         <div class="panel-body">
 
             <div class="form-group">
-                <label>Role:</label>
-                <label th:text="${role.name}"></label>
+                <label>Titre du formation:</label>
+                <label th:text="${Titre}"></label>
+            </div>
+
+            <div class="form-group">
+                <label>Date:</label>
+                <label th:text="${Date}"></label>
+            </div>
+
+            <div class="form-group">
+                <label>Etat:</label>
+                <label th:text="${Etat}"></label>
             </div>
 
         </div>

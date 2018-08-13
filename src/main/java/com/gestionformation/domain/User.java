@@ -106,6 +106,18 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @ManyToOne (fetch = FetchType.EAGER)
     private User Manager;
 
+    @OneToMany(mappedBy = "utilisateur",
+        cascade = {CascadeType.ALL }, fetch = FetchType.EAGER)
+    private Set<Commentaire> ListeCommentaires;
+
+    @OneToMany(mappedBy = "formation")
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Reservation> Reservations = new HashSet<>();
+
+    @OneToMany(mappedBy = "utilisateur")
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Notification> ListeNotifications = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -275,5 +287,33 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setManager(User manager) {
         Manager = manager;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public Set<Commentaire> getListeCommentaires() {
+        return ListeCommentaires;
+    }
+
+    public void setListeCommentaires(Set<Commentaire> listeCommentaires) {
+        ListeCommentaires = listeCommentaires;
+    }
+
+    public Set<Reservation> getReservations() {
+        return Reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        Reservations = reservations;
+    }
+
+    public Set<Notification> getListeNotifications() {
+        return ListeNotifications;
+    }
+
+    public void setListeNotifications(Set<Notification> listeNotifications) {
+        ListeNotifications = listeNotifications;
     }
 }
