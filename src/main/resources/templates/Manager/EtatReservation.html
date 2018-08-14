@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="Manager/HeadManager">
+<head>
+    <meta charset="utf-8"/>
+    <title> Formation</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+          th:href="@{css/bootstrap.min.css}"
+    />
+</head>
+<body>
+<p></p>
+<div  class="container" layout:fragment="content">
+
+    <div class="container" >
+        <h3>Liste des Réservations</h3>
+        <table class="table">
+            <!--  <thead>
+                <tr>
+                <th>Info</th><th>Ci </th>
+                </tr>
+
+            </thead>-->
+            <tbody>
+            <tr th:each="e:${ListReservation}">
+                <td><strong>Date de création:</strong></td>
+                <td th:text="${e.dateCreation}"></td>
+                <td><strong>Etat:</strong></td>
+                <td th:text="${e.Etat}"></td>
+                <td><strong>Titre Formation:</strong></td>
+                <td th:text="${e.formation.nomFormation}"></td>
+<!--
+            <tr>
+                <th>Autres Informations </th>
+            </tr>
+
+       <tr th:each="c:${e.autresInformations}">
+
+
+                <td th:text="${c.nomInfo}"></td>
+                <td th:text="${c.contenuInfo}"></td>
+
+-->
+
+            </tr>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li th:class="${pagecourante}==${status.index}?'active':''" th:each="page,status:${pages}">
+                <a th:href="@{EtatReservationCol(page=${status.index},size=${size})}" th:text="${status.index}">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

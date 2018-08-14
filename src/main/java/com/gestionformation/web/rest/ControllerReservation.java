@@ -4,6 +4,7 @@ package com.gestionformation.web.rest;
 import com.gestionformation.domain.*;
 import com.gestionformation.repository.*;
 import com.gestionformation.service.NotificationService;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
@@ -188,8 +190,74 @@ reservation.setEtat("CONFIRMED");
         catch(MailException e)
         {}
 
+
+TypeDeNotification typeNotif=new TypeDeNotification();
+        typeNotif.setNomType("Validation RF");
+        typeNotif.setContenuNotification(msg);
+        typeDeNotificationRepository.save(typeNotif);
+
+        Notification notif=new Notification();
+        notif.setDateDeCreation(dateCreation);
+        notif.setReservation(reservation);
+        notif.setUtilisateur(user.get());
+        /**0= non lu 1=lu--**/
+        notif.setEtatDeVue(false);
+        notif.setTypeDeNotification(typeNotif);
+        notificationRepository.save(notif);
+
         return "RF/ConfirmationReservation";
     }
 
+/*****Notification RF***/
+@RequestMapping(value = "/NotificationRF")
+public String NotificationRF(Model model,
+                            @RequestParam(name = "page", defaultValue = "0") int p,
+                            @RequestParam(name = "size", defaultValue = "5") int s
+    , @RequestParam(name = "motCle", defaultValue = "") String mc
+) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    String userName = auth.getName();
+    Optional<User> user=userRepository.findOneByLogin(userName);
+    Page<Notification> Notification = notificationRepository.chercher(user.get().getId(),new PageRequest(p, s));
+    model.addAttribute("Notification", Notification.getContent());
+    int[] pages = new int[Notification.getTotalPages()];
+
+    model.addAttribute("pages", pages);
+    model.addAttribute("size", s);
+    model.addAttribute("pagecourante", p);
+
+
+    return "RF/NotificationRF";
+
+}
+
+
+    /**changer etat de notification marquer comme lu**/
+    @RequestMapping(value = "/MarquerCommeLu", method = RequestMethod.GET)
+    public String MarquerCommeLu(Model model,Long id, int page, int size,Long idReservation,Long idUser) {
+
+        Optional<Notification> notification=  notificationRepository.findById(id);
+
+
+
+
+        /** changer l'etat lu de la notification**/
+        notification.get().setEtatDeVue(true);
+
+        notificationRepository.save(notification.get());
+
+        if(notification.get().getTypeDeNotification().getNomType().equals("formulaire d'avis"))
+            //**redirection vers le formulaire d'avis pour le remplir et il faut ajouter un model contiet les info sur la formation et user
+        {
+            model.addAttribute("idReservation", idReservation);
+            model.addAttribute("idUser", idUser);
+
+
+            return "redirect:/FormulaireAvis?idReservation=" + idReservation + "&idUser=" + idUser;
+
+        }
+        else
+                 return "redirect:/NotificationRF?page=0&size=5";
+    }
 
 }

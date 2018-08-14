@@ -53,4 +53,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select s from User s  where  s.authorities IS NOT EMPTY and s.login like :x ")
     //@Query("select r.role from Role r where r.secretaire.login like :x ")
     public Page<User> chercher(@Param("x")String mc, Pageable pageable);
+
+//    @Query("select s from User s  where  s.authorities.name  in ('ROLE_RF')")
+    @Query("SELECT s from User s JOIN s.authorities a WHERE (a.name like 'ROLE_RF')")
+
+    //@Query("select r.role from Role r where r.secretaire.login like :x ")
+    public User chercherRF();
+
 }

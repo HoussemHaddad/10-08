@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="Collaborateur/HeadCol">
+<head>
+    <meta charset="utf-8"/>
+    <title>Formation</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+          th:href="@{css/bootstrap.min.css}"
+    />
+</head>
+<body>
+<div class="container" layout:fragment="content">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Confirmation du réservation</div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                <label>Titre du formation:</label>
+                <label th:text="${Titre}"></label>
+            </div>
+
+
+
+            <div class="form-group">
+                <label>Etat:</label>
+                <label th:text="${Etat}"></label>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

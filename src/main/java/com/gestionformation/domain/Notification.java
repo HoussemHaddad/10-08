@@ -26,7 +26,7 @@ public class Notification implements Serializable {
     @Column(name = "dateDeCreation")
     private String dateDeCreation;
 
-
+/**0= non lu 1=lu--**/
     @Column(name = "etatDeVue")
     private Boolean etatDeVue;
 

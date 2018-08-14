@@ -39,19 +39,28 @@ public class Reservation implements Serializable {
     private Formation formation;
 
 //    @ManyToMany
-//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-//    @JoinTable(name = "reservation_question",
+////    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+//    @JoinTable(name = "Feedback",
 //               joinColumns = @JoinColumn(name = "reservations_id", referencedColumnName = "id"),
 //               inverseJoinColumns = @JoinColumn(name = "questions_id", referencedColumnName = "id"))
 //    private Set<Question> questions = new HashSet<>();
 
-    @OneToMany(mappedBy = "reservation")
+
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "reservation", cascade = CascadeType.ALL)
+
 //    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Notification> notifications = new HashSet<>();
 
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "reservation", cascade = CascadeType.ALL)
+
 //    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AutresInformations> autresInformations = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "Reservation", cascade = CascadeType.ALL)
+
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Feedback> ListeFeedback= new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -96,7 +105,7 @@ public class Reservation implements Serializable {
 //        this.questions = questions;
 //        return this;
 //    }
-//
+
 //    public Reservation addQuestion(Question question) {
 //        this.questions.add(question);
 //        question.getReservations().add(this);
@@ -205,5 +214,13 @@ public class Reservation implements Serializable {
 
     public void setEtat(String etat) {
         Etat = etat;
+    }
+
+    public Set<Feedback> getListeFeedback() {
+        return ListeFeedback;
+    }
+
+    public void setListeFeedback(Set<Feedback> listeFeedback) {
+        ListeFeedback = listeFeedback;
     }
 }

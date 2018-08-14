@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8"/>
+    <title>Gestion Formation</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+          th:href="@{css/bootstrap.min.css}"
+    />
+
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css"
+          th:href="@{css/style.css}"
+    />
+
+    <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.0.10/css/all.css}" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous"/>
+
+
+
+
+    <meta charset="utf-8"/>
+    <title>Formation</title>
+
+    <style>
+.notification-container {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    top: 25px;
+    left: 15px;
+
+    i {
+        color: #fff;
+    }
+}
+.notification-counter {
+    position: absolute;
+    top: 2px;
+    left: 12px;
+
+    background-color: rgba(212, 19, 13, 1);
+    color: #fff;
+    border-radius: 3px;
+    padding: 1px 3px;
+    font: 8px Verdana;
+}
+
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-inverse ">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="navbar-header" >
+                        <a class="navbar-brand fas fa-home" th:href="@{Page1Manager}"> Acceuil </a>
+                    </div>
+
+
+                    <ul class="nav navbar-nav">
+                        <!--   <li><a class="dropdown-toggle"> <span class="glyphicon glyphicon-home"></span> Accueil </a></li>
+                         -->
+
+
+                        <li class = "dropdown">
+                            <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown"  th:href="@{ConsulterCatalogueManager}">
+                                <span class="fas fa-book"> </span> Consultation du Catalogue
+                                <b class = "caret"></b>
+                            </a>
+                        </li>
+                        <li class = "dropdown">
+                            <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" th:href="@{EtatReservationManager}" >
+                                <span class="fas fa-clipboard"> </span> Etat des Réservations
+                                <b class = "caret"></b>
+                            </a>
+                        </li>
+
+
+                        <li class = "dropdown">
+                            <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" th:href="@{GererReservationManager}" >
+                                <span class="fas fa-clipboard"> </span> Gerer les Réservations
+                                <b class = "caret"></b>
+                            </a>
+                        </li>
+
+
+
+                        <li>&nbsp;
+
+
+                        </li>
+                        <li class = " centreinteret dropdown marge1" >
+                            <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
+                                <div class="centreinteret"><div class=" fas fa-user centreinteret" th:text="${session.mySessionAttribute}" th:unless="${session == null}">[...]</div>
+                                </div><!--  <b class = "caret"></b>-->
+                            </a>
+                            <ul class = "dropdown-menu">
+                                <li><a class="dropdown-toggle" th:href="@{logout}" th:inline="text" delete-cookies="JSESSIONID"> <span  class="fas fa-sign-out-alt" ></span> Déconecter </a></li>
+
+
+                            </ul>
+                        </li>
+
+
+                        <li>
+                            <a th:href="@{NotificationManager}">
+                            <i class="fas fa-globe"></i>
+                            <span class="notification-counter" th:text="${nbr}">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<section layout:fragment="content">
+
+</section>
+<br />
+<br />
+<footer class="navbar-fixed-bottom">
+    <hr/>
+    <div class="container">
+        <small> Copyright @2018 </small>
+    </div>
+</footer>
+</body>
+</html>

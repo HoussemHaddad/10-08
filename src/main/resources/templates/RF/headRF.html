@@ -119,8 +119,8 @@
                                 <b class = "caret"></b>
                             </a>
                             <ul class = "dropdown-menu">
-                                <li><a th:href="@{FormUser}"> <span class="fas fa-plus-circle"></span> Ajouter un nouveau  formulaire  </a></li>
-                                <li><a th:href="@{ListeUser}"> <span class="far fa-list-alt"></span> Utiliser un formulaire existant</a></li>
+                                <li><a th:href="@{AjoutQuestion}"> <span class="fas fa-plus-circle"></span> Ajouter un nouveau  question </a></li>
+                                <li><a th:href="@{AjoutFormulaire}"> <span class="far fa-list-alt"></span> Créer un formulaire</a></li>
 
                             </ul>
                         </li>
@@ -146,10 +146,10 @@
 
 
                         <li>
-
+                            <a th:href="@{NotificationRF}">
                             <i class="fas fa-globe"></i>
                             <span class="notification-counter" th:text="${nbr}">0</span>
-
+                            </a>
                         </li>
                     </ul>
                 </div>

@@ -18,6 +18,10 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+//    @Query("select r from Reservation r  ")
+    @Query("SELECT r from Reservation r JOIN r.autresInformations a WHERE (r.id = a.reservation.id) and r.utilisateur.id=:x")
+    //@Query("select r.role from Role r where r.secretaire.login like :x ")
+    public Page<Reservation> chercherReservation(@Param("x")Long mc, Pageable pageable);
 
 //    @Query(value = "select distinct reservation from Reservation reservation left join fetch reservation.questions",
 //        countQuery = "select count(distinct reservation) from Reservation reservation")

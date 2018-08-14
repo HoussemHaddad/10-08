@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="Manager/HeadManager">
+<head>
+    <meta charset="utf-8"/>
+    <title> Formation</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+          th:href="@{css/bootstrap.min.css}"
+    />
+</head>
+<body>
+<p></p>
+<div  class="container" layout:fragment="content">
+    <div  class="container">
+
+
+
+    </div>
+
+
+    <div class="container">
+      <center>  <h3>Détails d'une Formation</h3></center>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Titre Formation</th>
+
+
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr th:each="c:${formation}">
+                <h2> <td th:text="${c.nomFormation}" style="border:solid 2px blue;"></td></h2>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Categorie</th>
+
+
+            </tr>
+
+            </thead>
+            <tbody>
+            </tr>
+            <tr th:each="c:${formation}">
+                <td th:text="${c.categorieFormation.nomCategorie}"></td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Centre de Formation</th>
+
+
+            </tr>
+
+            </thead>
+            <tbody>
+            </tr>
+
+            <tr th:each="c:${formation}">
+                <td th:text="${c.centreDeFormation.nomCentre}"></td>
+            </tr>
+
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Détail</th>
+
+
+            </tr>
+
+            </thead>
+            <tbody>
+            </tr>
+
+            <center><tr th:each="c:${formation}">
+                <td th:text="${c.description}"></td></center>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+    <div class="container" style="width:70em;height:50em;border:2px solid #999999;">
+        <h3>Liste des commentaires</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Utilisateur</th><th>commentaire</th>
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr th:each="c:${commentaires}">
+                <td th:text="${c.utilisateur.login}">:</td>
+                <td th:text="${c.contenu}"></td>
+
+
+
+            </tr>
+            </tbody>
+        </table>
+
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li th:class="${pagecourante}==${status.index}?'active':''" th:each="page,status:${pages}">
+                <a th:href="@{DetailFormationManager(page=${status.index},size=${size},idFormation=${idFormation})}" th:text="${status.index}">
+                </a>
+            </li>
+        </ul>
+    </div>
+
+        <div  class="container">
+            <form th:action="@{CommentaireManager}" method="get">
+                <input type="text" name="idFormation" th:value="${idFormation}"hidden="hidden"/>
+                <input type="text" name="motCle" th:value="${motCle}"style="width:40em;"/>
+                <button class="btn btn-primary">Commenter</button>
+            </form>
+        </div>
+
+<br/>
+        <div  class="container" style="width:60em;height:7em;border:2px solid #999999;">
+            <form th:action="@{ReservationManager}" method="get">
+                <input type="text" name="idFormation" th:value="${idFormation}"hidden="hidden"/>
+                <div class="form-group centreinteret">
+
+
+
+                </div>
+
+                <br/>
+                <center>
+
+                    <div>
+                        <button type="submit" class="btn btn-primary">Réserver</button>
+                    </div>
+                </center>
+            </form>
+        </div>
+
+    </div>
+
+
+<br/>
+    <br/>
+
+</div>
+</body>
+</html>

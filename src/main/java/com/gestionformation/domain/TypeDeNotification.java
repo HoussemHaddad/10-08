@@ -114,4 +114,12 @@ public class TypeDeNotification implements Serializable {
             ", nomType='" + getNomType() + "'" +
             "}";
     }
+
+    public String getContenuNotification() {
+        return contenuNotification;
+    }
+
+    public void setContenuNotification(String contenuNotification) {
+        this.contenuNotification = contenuNotification;
+    }
 }

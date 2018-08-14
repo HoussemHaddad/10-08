@@ -296,9 +296,9 @@ User user= new User();
                 return "redirect:/Page1Admin";
 //                        System.out.println("ici on va retourner la page acceuil d'admin");
                     else  if(d.getName().equals("ROLE_USER"))
-                        System.out.println("ici on va retourner la page acceuil du collaborateur");
+                        return "Collaborateur/Page1Collaborateur";
                     else  if(d.getName().equals("ROLE_MANAGER"))
-                        System.out.println("ici on va retourner la page acceuil du Manager");
+                        return "Manager/Page1Manager";
                     else  if(d.getName().equals("ROLE_RF"))
                         return "RF/Page1RF";
 //                        System.out.println("ici on va retourner la page acceuil du Responsable formation");
@@ -397,7 +397,7 @@ User user= new User();
                         user.setAuthorities(ls);
 /**** ajout du user au bd local*/////
                         userRepository.save(user);
-
+                        return "Collaborateur/Page1Collaborateur";
                     }
                     /*** Manager n'existe pas en base local recuperer a partir Ldap*****/
                     else {
@@ -510,7 +510,7 @@ User user= new User();
                                 user1.setAuthorities(ls1);
 /**** ajout du user au bd local*/////
                                 userRepository.save(user1);
-                                System.out.println("ici on va retourner la page acceuil du user");
+                                return "Collaborateur/Page1Collaborateur";
 
                             } catch (NamingException e) {
                                 System.out.println("Recuperation de  Nom Prenom: KO");
@@ -557,9 +557,9 @@ User user= new User();
 /**** ajout du user au bd local*/////
                 userRepository.save(user);
                     if(role.equals("ROLE_ADMIN"))
-                        System.out.println("ici on va retourner la page acceuil d'admin");
+                        return "admin/Page1Admin";
                     else  if(role.equals("ROLE_MANAGER"))
-                        System.out.println("ici on va retourner la page acceuil du Manager");
+                        return "Manager/Page1Manager";
                     else  if(role.equals("ROLE_RF"))
 //                        System.out.println("ici on va retourner la page acceuil du Responsable formation");
                         return "RF/Page1RF";

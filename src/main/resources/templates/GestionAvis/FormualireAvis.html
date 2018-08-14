@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      >
+<head>
+    <meta charset="utf-8"/>
+    <title>Formulaire d'avis</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+          th:href="@{css/bootstrap.min.css}"
+    />
+</head>
+<body>
+<p></p>
+<div  class="container" layout:fragment="content">
+
+
+    <div class="container" >
+        <h3>Formulaire d'avis</h3>
+
+        <form th:action="@{saveFeedback}" method="post">
+            <input class = "form-control" type="text" th:value="${idReservation}" name="idReservation"/>
+            <input class = "form-control" type="text" th:value="${idUser}" name="idUser"/>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Titre du question</th><th>Réponse(OUI/NON)</th>
+
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr th:each="q1:${lstQ1}">
+
+                <td th:text="${q1.titre}" name="q1"></td>
+                <td > <input class = "form-control" type="text" name="rep1"
+                             /></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Titre du question</th><th>Réponse(nombre en %)</th>
+
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr th:each="q2:${lstQ2}" name="q2">
+
+                <td th:text="${q2.titre}"></td>
+                <td > <input class = "form-control" type="text" name="rep2"
+                /></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Titre du question</th><th>Réponse(nombre en %)</th>
+
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr th:each="q3:${lstQ3}" >
+
+                    <td th:text="${q3.titre}" name="q3"></td>
+                    <td > <input class = "form-control" type="text" name="rep3"
+                    /></td>
+
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+            </center>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

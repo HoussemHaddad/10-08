@@ -24,7 +24,7 @@ public interface CategorieFormationRepository extends JpaRepository<CategorieFor
     //@Query("select r.role from Role r where r.secretaire.login like :x ")
     public Page<CategorieFormation> chercher(@Param("x")String mc, Pageable pageable);
 
-    @Query("select c from CategorieFormation c")
+    @Query("select c from CategorieFormation c ")
     public List<CategorieFormation> chercherCategorieF();
 }
 
