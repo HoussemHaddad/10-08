@@ -52,9 +52,9 @@ public class ManagerController {
 
     @RequestMapping(value="/Page1Manager")
     public String homeRF(Model model) {
-        String nbr="44";
-
-        model.addAttribute("nbr",nbr);
+//        String nbr="44";
+//
+//        model.addAttribute("nbr",nbr);
 
         return "Manager/Page1Manager";
     }
@@ -252,7 +252,7 @@ public class ManagerController {
 
         System.out.println(RF.getFirstName()+"RF RF RF");
 
-        String msgRF = "Bonjour Mr "+RF.getFirstName()    +"le collaborateur:"+userName+" a réservé la formation "+f.get().getNomFormation();
+        String msgRF = "Bonjour Mr "+RF.getFirstName()    +" le collaborateur: "+userName+" a réservé la formation "+f.get().getNomFormation();
 //        try {
 //            /**remplacer mail par mail du collaborateur qu'on va notifier---------**/
 //            // ------------->changer email par: RF.getEmail();
@@ -288,30 +288,31 @@ public class ManagerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName = auth.getName();
         Optional<User> user=userRepository.findOneByLogin(userName);
+        System.out.println(userName+"!!!!!! useer du reserv "+user.get().getId());
 
         Page<Reservation> pageReservation =
             reservationRepository.chercherReservation(user.get().getId(), new PageRequest(p, s));
 
 
-        for(int i=0; i<pageReservation.getTotalPages();i++)
-        {
-//    if (pageReservation.getContent().get(i).getAutresInformations().size()==0) {
-//        AutresInformations autre=new AutresInformations();
-//        autre.setNomInfo("Information");
-//        autre.setContenuInfo("pas d'info pour le moment");
-//        autre.setReservation(pageReservation.getContent().get(i));
-//        Set<AutresInformations> lstautre=new HashSet <>();
-//        lstautre.add(autre);
-//        pageReservation.getContent().get(i).setAutresInformations(lstautre);
-//    }
-
+//        for(int i=0; i<pageReservation.getTotalPages();i++)
+//        {
+////    if (pageReservation.getContent().get(i).getAutresInformations().size()==0) {
+////        AutresInformations autre=new AutresInformations();
+////        autre.setNomInfo("Information");
+////        autre.setContenuInfo("pas d'info pour le moment");
+////        autre.setReservation(pageReservation.getContent().get(i));
+////        Set<AutresInformations> lstautre=new HashSet <>();
+////        lstautre.add(autre);
+////        pageReservation.getContent().get(i).setAutresInformations(lstautre);
+////    }
+//        }
             model.addAttribute("ListReservation", pageReservation.getContent());
             int[] pages = new int[pageReservation.getTotalPages()];
 
             model.addAttribute("pages", pages);
             model.addAttribute("size", s);
             model.addAttribute("pagecourante", p);
-        }
+
 
 
         return "Manager/EtatReservation";
@@ -319,4 +320,178 @@ public class ManagerController {
 
     }
 
+/********************************************************/
+/***Gerer les réservation par le manager**/
+    @RequestMapping(value = "/GererReservationManager")
+    public String GererReservationManager(Model model, Long idFormation,
+                                         @RequestParam(name = "page", defaultValue = "0") int p,
+                                         @RequestParam(name = "size", defaultValue = "5") int s ) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userName = auth.getName();
+        Optional<User> user=userRepository.findOneByLogin(userName);
+
+        Page<Reservation> pageReservation =
+            reservationRepository.chercherReservationdEquipe(user.get().getId(), new PageRequest(p, s));
+
+        model.addAttribute("ListReservation", pageReservation.getContent());
+        int[] pages = new int[pageReservation.getTotalPages()];
+
+        model.addAttribute("pages", pages);
+        model.addAttribute("size", s);
+        model.addAttribute("pagecourante", p);
+
+        return "Manager/GererReservation";
+
+
+    }
+
+
+    /**Confirmer les reservation par le Manager**/
+    @RequestMapping(value = "/ConfirmationManager")
+    public String ConfirmerReservationManager(Model model, Long idReservation)
+    {
+        Optional<Reservation> reservation=reservationRepository.findById(idReservation);
+        reservation.get().setEtat("WAITING_FOR_VALIDATION_TR");
+        reservationRepository.save(reservation.get());
+
+        /*notifier user*/
+        String msg = "Bonjour Mr "+reservation.get().getUtilisateur().getFirstName()+" Votre Manager a valider votre réservation de la formation "+reservation.get().getFormation().getNomFormation();
+//        try {
+//            /**remplacer mail par mail du collaborateur qu'on va notifier---------**/
+//            //------------->changer email par: reservation.get().getUtilisateur().getEmail();
+
+//            notificationService.sendNotification("h.h138907@gmail.com",msg);
+//        }
+//        catch(MailException e)
+//        {}
+        String dateCreation = new Date().toString();
+
+        TypeDeNotification typeNotif=new TypeDeNotification();
+        typeNotif.setNomType("Décision Manager");
+        typeNotif.setContenuNotification(msg);
+        typeDeNotificationRepository.save(typeNotif);
+
+        Notification notif=new Notification();
+        notif.setDateDeCreation(dateCreation);
+        notif.setReservation(reservation.get());
+        notif.setUtilisateur(reservation.get().getUtilisateur());
+        /**0= non lu 1=lu--**/
+        notif.setEtatDeVue(false);
+        notif.setTypeDeNotification(typeNotif);
+        notificationRepository.save(notif);
+
+
+        /*notifier TR*/
+
+        User RF=userRepository.chercherRF();
+
+        String msgRF = "Bonjour Mr "+RF.getFirstName()    +" la reservation du :"+reservation.get().getUtilisateur().getFirstName()+" pour la formation "+reservation.get().getFormation().getNomFormation()+" a été valider par son manager";
+//        try {
+//            /**remplacer mail par mail du collaborateur qu'on va notifier---------**/
+//            // ------------->changer email par: RF.getEmail();
+//            notificationService.sendNotification("h.h138907@gmail.com",msgRF);
+//        }
+//        catch(MailException e)
+//        {}
+
+
+        TypeDeNotification typeNotif2=new TypeDeNotification();
+        typeNotif2.setNomType("Décision Manager");
+        typeNotif2.setContenuNotification(msgRF);
+        typeDeNotificationRepository.save(typeNotif2);
+
+        Notification notif2=new Notification();
+        notif2.setDateDeCreation(dateCreation);
+        notif2.setReservation(reservation.get());
+        notif2.setUtilisateur(RF);
+        /**0= non lu 1=lu--**/
+        notif2.setEtatDeVue(false);
+        notif2.setTypeDeNotification(typeNotif2);
+        notificationRepository.save(notif2);
+
+
+
+        return "redirect:/GererReservationManager?page=0&size=5";
+    }
+
+
+    /**Anuulation du reservation par le manager**/
+    @RequestMapping(value = "/AnnulationManager")
+    public String AnnulationReservationManager(Model model, Long idReservation)
+    {
+
+        model.addAttribute("idReservation", idReservation);
+
+        return "Manager/AnnulationReservation";
+    }
+
+
+    /**Anuulation du reservation par le manager**/
+    @RequestMapping(value = "/saveAnnulationManager")
+    public String AnnulerReservationManager(Model model, Long idReservation,String raison)
+    {
+
+        Optional<Reservation> reservation=reservationRepository.findById(idReservation);
+        reservation.get().setEtat("CANCELED_BY_MANAGER");
+        reservationRepository.save(reservation.get());
+
+        /*notifier user*/
+        String msg = "Bonjour Mr "+reservation.get().getUtilisateur().getFirstName()+" Votre Manager a annuler votre réservation de la formation "+reservation.get().getFormation().getNomFormation()+" pour la raison: "+raison;
+//        try {
+//            /**remplacer mail par mail du collaborateur qu'on va notifier---------**/
+//            //------------->changer email par: reservation.get().getUtilisateur().getEmail();
+
+//            notificationService.sendNotification("h.h138907@gmail.com",msg);
+//        }
+//        catch(MailException e)
+//        {}
+        String dateCreation = new Date().toString();
+
+        TypeDeNotification typeNotif=new TypeDeNotification();
+        typeNotif.setNomType("Décision Manager");
+        typeNotif.setContenuNotification(msg);
+        typeDeNotificationRepository.save(typeNotif);
+
+        Notification notif=new Notification();
+        notif.setDateDeCreation(dateCreation);
+        notif.setReservation(reservation.get());
+        notif.setUtilisateur(reservation.get().getUtilisateur());
+        /**0= non lu 1=lu--**/
+        notif.setEtatDeVue(false);
+        notif.setTypeDeNotification(typeNotif);
+        notificationRepository.save(notif);
+
+
+        /*notifier TR*/
+
+        User RF=userRepository.chercherRF();
+
+        String msgRF = "Bonjour Mr "+RF.getFirstName()    +" la reservation du :"+reservation.get().getUtilisateur().getFirstName()+" pour la formation "+reservation.get().getFormation().getNomFormation()+" a été annuler par son manager pour la raison suivante: "+raison;
+//        try {
+//            /**remplacer mail par mail du collaborateur qu'on va notifier---------**/
+//            // ------------->changer email par: RF.getEmail();
+//            notificationService.sendNotification("h.h138907@gmail.com",msgRF);
+//        }
+//        catch(MailException e)
+//        {}
+
+
+        TypeDeNotification typeNotif2=new TypeDeNotification();
+        typeNotif2.setNomType("Décision Manager");
+        typeNotif2.setContenuNotification(msgRF);
+        typeDeNotificationRepository.save(typeNotif2);
+
+        Notification notif2=new Notification();
+        notif2.setDateDeCreation(dateCreation);
+        notif2.setReservation(reservation.get());
+        notif2.setUtilisateur(RF);
+        /**0= non lu 1=lu--**/
+        notif2.setEtatDeVue(false);
+        notif2.setTypeDeNotification(typeNotif2);
+        notificationRepository.save(notif2);
+
+
+
+        return "redirect:/GererReservationManager?page=0&size=5";
+    }
 }

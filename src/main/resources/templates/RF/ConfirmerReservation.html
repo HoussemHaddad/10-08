@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="RF/headRF">
+<head>
+    <meta charset="utf-8"/>
+    <title> Formation</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+          th:href="@{css/bootstrap.min.css}"
+    />
+</head>
+<body>
+<p></p>
+<div  class="container" layout:fragment="content">
+    <div  class="container">
+
+
+
+    </div>
+
+
+    <div class="container">
+        <center>  <h3>Confirmation du réservation</h3></center>
+
+        <br/>
+        <div  class="container" style="width:60em;height:7em;border:2px solid #999999;">
+            <form th:action="@{ValiderReservationRF}" method="get">
+
+                <input class = "form-control" type="hidden" th:value="${idReservation}" name="idReservation"  />
+                <div class="form-group centreinteret">
+                    <label class="control-label">Date du Reservation:</label>
+                    <select name="jr">
+                        <option th:each="jr:${jr}"
+                                th:value="${jr}"
+                                th:text="${jr}"
+
+                        />
+                    </select>
+
+                    <select name="mois">
+                        <option th:each="m:${mois}"
+                                th:value="${m}"
+                                th:text="${m}"
+
+                        />
+                    </select>
+                    <input class = " annee "  placeholder="Ex:2018" type="text" size="4" name="annee1"
+                    />
+
+                </div>
+
+                <br/>
+                <center>
+
+                    <div>
+                        <button type="submit" class="btn btn-primary">Valider</button>
+                    </div>
+                </center>
+            </form>
+        </div>
+
+    </div>
+
+
+    <br/>
+    <br/>
+
+</div>
+</body>
+</html>

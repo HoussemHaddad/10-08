@@ -68,6 +68,10 @@ public class AdminController {
     {
         return  "redirect:login5";
     }
+    @RequestMapping(value="/403")
+    public String accessDneied() {
+        return "403";
+    }
 
     /** 1er  page a afficher pour l'admin**/
     @RequestMapping(value="/Page1Admin")

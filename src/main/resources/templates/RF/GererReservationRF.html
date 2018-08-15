@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="Manager/HeadManager">
+      layout:decorator="RF/headRF">
 <head>
     <meta charset="utf-8"/>
     <title> Formation</title>
@@ -14,7 +14,7 @@
 <div  class="container" layout:fragment="content">
 
     <div class="container" >
-        <h3>Liste des Réservations</h3>
+        <h3>Liste des Réservations des Collaborateurs:</h3>
         <table class="table">
             <!--  <thead>
                 <tr>
@@ -24,24 +24,17 @@
             </thead>-->
             <tbody>
             <tr th:each="e:${ListReservation}">
+                <td><strong>Collaborateur:</strong></td>
+                <td th:text="${e.utilisateur.firstName}"></td>
                 <td><strong>Date de création:</strong></td>
                 <td th:text="${e.dateCreation}"></td>
                 <td><strong>Etat:</strong></td>
                 <td th:text="${e.Etat}"></td>
                 <td><strong>Titre Formation:</strong></td>
                 <td th:text="${e.formation.nomFormation}"></td>
-<!--
-            <tr>
-                <th>Autres Informations </th>
-            </tr>
 
-       <tr th:each="c:${e.autresInformations}">
-
-
-                <td th:text="${c.nomInfo}"></td>
-                <td th:text="${c.contenuInfo}"></td>
-
--->
+                <td><a th:href="@{ConfirmationRF(idReservation=${e.id})}">Confirmer</a></td>
+                <td><a th:href="@{AnnulationRF(idReservation=${e.id})}">Annuler</a></td>
 
             </tr>
             </tr>
@@ -53,7 +46,7 @@
     <div class="container">
         <ul class="nav nav-pills">
             <li th:class="${pagecourante}==${status.index}?'active':''" th:each="page,status:${pages}">
-                <a th:href="@{EtatReservationManager(page=${status.index},size=${size})}" th:text="${status.index}">
+                <a th:href="@{GererReservationRF(page=${status.index},size=${size})}" th:text="${status.index}">
                 </a>
             </li>
         </ul>

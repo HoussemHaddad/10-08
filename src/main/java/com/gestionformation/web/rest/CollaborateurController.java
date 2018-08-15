@@ -52,9 +52,9 @@ public class CollaborateurController {
 
     @RequestMapping(value="/Page1Collaborateur")
     public String homeRF(Model model) {
-        String nbr="44";
-
-        model.addAttribute("nbr",nbr);
+//        String nbr="44";
+//
+//        model.addAttribute("nbr",nbr);
 
         return "Collaborateur/Page1Collaborateur";
     }

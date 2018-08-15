@@ -19,9 +19,18 @@ import java.util.Optional;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 //    @Query("select r from Reservation r  ")
-    @Query("SELECT r from Reservation r JOIN r.autresInformations a WHERE (r.id = a.reservation.id) and r.utilisateur.id=:x")
+    @Query("SELECT r from Reservation r Where r.utilisateur.id=:x")
     //@Query("select r.role from Role r where r.secretaire.login like :x ")
     public Page<Reservation> chercherReservation(@Param("x")Long mc, Pageable pageable);
+
+
+    @Query("SELECT r from Reservation r Where r.utilisateur.Manager.id=:x and (r.Etat Like 'WAITING_FOR_VALIDATION_MANAGER') ")
+    //@Query("select r.role from Role r where r.secretaire.login like :x ")
+    public Page<Reservation> chercherReservationdEquipe(@Param("x")Long mc, Pageable pageable);
+
+    @Query("SELECT r from Reservation r Where  (r.Etat Like 'WAITING_FOR_VALIDATION_TR') ")
+    //@Query("select r.role from Role r where r.secretaire.login like :x ")
+    public Page<Reservation> chercherReservationdRF( Pageable pageable);
 
 //    @Query(value = "select distinct reservation from Reservation reservation left join fetch reservation.questions",
 //        countQuery = "select count(distinct reservation) from Reservation reservation")
