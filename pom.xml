@@ -269,6 +269,13 @@
             <version>1.5.5</version>
         </dependency>
         <dependency>
+            <artifactId>com.google</artifactId>
+            <groupId>Ab</groupId>
+            <version>0.0.4.3</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/Ab.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>

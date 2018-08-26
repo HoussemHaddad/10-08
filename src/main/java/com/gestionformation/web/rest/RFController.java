@@ -224,7 +224,7 @@ Optional<CentreDeFormation> centre= centreDeFormation.findById(idCentre);
         , @RequestParam(name = "motCle", defaultValue = "") String mc
     ) {
         Page<Formation> pageFormation =
-            formationRepository.chercher("%" + mc + "%", new PageRequest(p, s));
+            formationRepository.chercherTous("%" + mc + "%", new PageRequest(p, s));
 
         model.addAttribute("ListFormation", pageFormation.getContent());
         int[] pages = new int[pageFormation.getTotalPages()];
@@ -532,7 +532,7 @@ Optional<CentreDeFormation> centre= centreDeFormation.findById(idCentre);
 
 
       /**Notifier le manager**/
-        String msgManager = "Bonjour Mr "+reservation.get().getUtilisateur().getManager().getFirstName()   +" la reservation du :"+reservation.get().getUtilisateur().getFirstName()+" pour la formation "+reservation.get().getFormation().getNomFormation()+" a été annuler par vous même pour la raison suivante: "+raison;
+        String msgManager = "Bonjour Mr "+reservation.get().getUtilisateur().getManager().getFirstName()   +" la reservation du :"+reservation.get().getUtilisateur().getFirstName()+" pour la formation "+reservation.get().getFormation().getNomFormation()+" a été annuler par le RF pour la raison suivante: "+raison;
 //        try {
 //            /**remplacer mail par mail du collaborateur qu'on va notifier---------**/
 //            // ------------->changer email par: reservation.get().getUtilisateur().getManager().getEmail();

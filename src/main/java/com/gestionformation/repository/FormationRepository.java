@@ -17,8 +17,12 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface FormationRepository extends JpaRepository<Formation, Long> {
-    @Query("select f from Formation f  where  f.nomFormation like :x ")
+    @Query("select f from Formation f  where  f.nomFormation like :x and Active is true")
     //@Query("select r.role from Role r where r.secretaire.login like :x ")
     public Page<Formation> chercher(@Param("x")String mc, Pageable pageable);
 
+
+    @Query("select f from Formation f  where  f.nomFormation like :x")
+    //@Query("select r.role from Role r where r.secretaire.login like :x ")
+    public Page<Formation> chercherTous(@Param("x")String mc, Pageable pageable);
 }

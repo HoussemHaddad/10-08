@@ -196,6 +196,7 @@ TypeDeNotification typeNotif=new TypeDeNotification();
         typeNotif.setContenuNotification(msg);
         typeDeNotificationRepository.save(typeNotif);
 
+
         Notification notif=new Notification();
         notif.setDateDeCreation(dateCreation);
         notif.setReservation(reservation);
@@ -220,6 +221,9 @@ public String NotificationRF(Model model,
     Optional<User> user=userRepository.findOneByLogin(userName);
     Page<Notification> Notification = notificationRepository.chercher(user.get().getId(),new PageRequest(p, s));
     model.addAttribute("Notification", Notification.getContent());
+
+
+
     int[] pages = new int[Notification.getTotalPages()];
 
     model.addAttribute("pages", pages);

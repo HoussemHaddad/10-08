@@ -44,6 +44,7 @@
     font: 8px Verdana;
 }
 
+
     </style>
 </head>
 <body>
@@ -128,11 +129,14 @@
 
 
 
-
-                        <li>&nbsp;
-
-
+                        <li class = "dropdown">
+                            <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown"  th:href="@{chat}">
+                                <span class="fas fa-users-cog"> </span> Bot
+                                <b class = "caret"></b>
+                            </a>
                         </li>
+
+
                         <li class = " centreinteret dropdown marge1" >
                             <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown">
                                 <div class="centreinteret"><div class=" fas fa-user centreinteret" th:text="${session.mySessionAttribute}" th:unless="${session == null}">[...]</div>

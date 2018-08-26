@@ -28,13 +28,14 @@
             </thead>
             <tbody>
             <tr th:each="n:${Notification}">
-                <td th:text="${n.typeDeNotification.contenuNotification}"></td>
+            <tr th:each="Notif:${Notif}">
+                <td th:text="${Notif}"></td>
 
 
 
 
                 <td><a onclick="return confirm('êtes vous sûr de changer l'etat de votre notification!')" th:href="@{MarquerCommeLu(id=${n.id},idReservation=${n.reservation.id},idUser=${n.utilisateur.id},page=${pagecourante},size=${size})}">Marquer comme lu</a></td>
-
+            </tr>
             </tr>
             </tbody>
         </table>

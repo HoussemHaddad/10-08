@@ -55,6 +55,12 @@ public class CollaborateurController {
 //        String nbr="44";
 //
 //        model.addAttribute("nbr",nbr);
+/***test remplacement en chaine**/
+        String s="Bonjour user vous avez reserver la formation";
+        System.out.println("chaine 1"+s);
+        s=s.replace("user","houssem");
+       s= s.replace("formation","spring");
+        System.out.println("nouvelle chaine!"+s);
 
         return "Collaborateur/Page1Collaborateur";
     }
